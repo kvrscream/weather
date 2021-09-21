@@ -136,5 +136,8 @@
   <ItemGroup>
     <BundleResource Include="generic.json" />
     <BundleResource Include="Resources\generic.json" />
+    <BundleResource Include="Resources\rain.json" />
+    <BundleResource Include="Resources\sunny.json" />
+    <BundleResource Include="Resources\cloud.json" />
   </ItemGroup>
 </Project>
