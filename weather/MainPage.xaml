@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Class="weather.MainPage"
+             xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             >
+
+    <ScrollView BackgroundColor="{Binding Theme}">
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Frame
+                BackgroundColor="White"
+                CornerRadius="59"
+                HasShadow="False"
+                Grid.Row="0"
+                >
+
+                <Entry Text="{Binding Busca}"
+                       TextColor="#ade8f4"
+                       Placeholder="Buscar cidade"
+                       PlaceholderColor="#ade8f4"
+                       />
+
+            </Frame>
+
+            <forms:AnimationView
+                Grid.Row="1"
+                x:Name="xAnimation"
+                Animation="{Binding Animation}"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                AutoPlay="True"
+                RepeatMode="Infinite"
+                />
+
+
+            <StackLayout Grid.Row="2">
+                <Label
+                    TextColor="White"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    Text="{Binding Temperature}"
+                    HorizontalOptions="Center"
+                    />
+
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        TextColor="White"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        Text="{Binding City}"
+                        HorizontalOptions="Center"
+                    />
+                </StackLayout>
+
+            </StackLayout>
+
+
+
+            <StackLayout Grid.Row="3"
+                         Orientation="Horizontal">
+                <Label
+                    Text="Modo escuro: "
+                    TextColor="White"
+                    VerticalOptions="End"
+                     />
+                <Switch
+                    IsToggled="{Binding Darkmode}"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    />
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
