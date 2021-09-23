@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Plugin.Geolocator;
 using weather.models;
 using weather.services;
@@ -165,11 +167,15 @@ namespace weather.ViewModels
             }
         }
 
+        public ICommand SearchCommand { get; set; }
+
 
         public HomeViewModel()
         {
-            //GetLatLong();
-            //GetWeatherByGeolocation();
+            SearchCommand = new Command(() =>
+            {
+                MessagingCenter.Send(this, "Ver");
+            });
         }
 
         public async Task<bool> GetLatLong()
@@ -179,9 +185,6 @@ namespace weather.ViewModels
             {
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
                 Location position = await Geolocation.GetLocationAsync(request);
-
-                //var locator = CrossGeolocator.Current;
-                //var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
 
                 this.Lat = position.Latitude.ToString();
                 this.Long = position.Longitude.ToString();
@@ -200,6 +203,8 @@ namespace weather.ViewModels
             this.City = temperatureModel.name;
             this.Maximum = temperatureModel.main.temp_max.ToString();
             this.Minimal = temperatureModel.main.temp_min.ToString();
+
+            this.Animation = Lottie(description: temperatureModel.weather.FirstOrDefault().description);
         }
 
 
@@ -221,5 +226,30 @@ namespace weather.ViewModels
                 this.Animation = "generic.json";
             }
         }
+
+
+        public string Lottie(string description)
+        {
+            string response = "generic.json";
+
+            if (description.Contains("nuvens"))
+            {
+                response = "cloud.json";
+            }
+
+            if (description.Contains("céu limpo"))
+            {
+                response = "sunny.json";
+            }
+
+            if (description.Contains("chuva"))
+            {
+                response = "rain.json";
+            }
+
+
+            return response;
+        }
+
     }
 }

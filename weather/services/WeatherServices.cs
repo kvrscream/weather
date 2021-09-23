@@ -27,5 +27,25 @@ namespace weather.services
             return temperature;
         }
 
+
+        public async Task<TemperatureModel> GetWeatherByCity(string city)
+        {
+            TemperatureModel temperature = new TemperatureModel();
+
+            using(HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string output = await client.GetStringAsync(url + $"q={city}&appid={key}&lang=pt&units=metric");
+                    temperature = JsonConvert.DeserializeObject<TemperatureModel>(output);
+                } catch(Exception ex)
+                {
+
+                }
+            }
+
+            return temperature;
+        }
+
     }
 }

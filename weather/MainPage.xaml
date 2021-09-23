@@ -23,11 +23,32 @@
                 Grid.Row="0"
                 >
 
-                <Entry Text="{Binding Busca}"
+               <Grid>
+                   <Grid.ColumnDefinitions>
+                       <ColumnDefinition Width="*" />
+                       <ColumnDefinition Width="*" />
+                   </Grid.ColumnDefinitions>
+
+                   <Entry
+                       Grid.Column="0"
+                       Text="{Binding Busca}"
                        TextColor="#ade8f4"
                        Placeholder="Buscar cidade"
                        PlaceholderColor="#ade8f4"
+                       HorizontalOptions="CenterAndExpand"
                        />
+
+                   <Button
+                       Grid.Column="1"
+                       BackgroundColor="Transparent"
+                       TextColor="Black"
+                       Text="Ver"
+                       CornerRadius="5"
+                       HorizontalOptions="End"
+                       Command="{Binding SearchCommand}"
+                       />
+
+               </Grid>                
 
             </Frame>
 
