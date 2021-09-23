@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Plugin.Geolocator;
 using weather.models;
 using weather.services;
 using Xamarin.Essentials;
@@ -39,6 +41,38 @@ namespace weather.ViewModels
                 OnPropertyChanged(nameof(Temperature));
             }
         }
+
+
+        string _minimal = "";
+        public string Minimal
+        {
+            get
+            {
+                return _minimal;
+            }
+            set
+            {
+                _minimal = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Minimal));
+            }
+        }
+
+        string _maximum = "";
+        public string Maximum
+        {
+            get
+            {
+                return _maximum;
+            }
+            set
+            {
+                _maximum = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Maximum));
+            }
+        }
+
 
         string _animation = "generic.json";
         public string Animation
@@ -134,15 +168,29 @@ namespace weather.ViewModels
 
         public HomeViewModel()
         {
-            GetLatLong();
-            GetWeatherByGeolocation();
+            //GetLatLong();
+            //GetWeatherByGeolocation();
         }
 
-        public async void GetLatLong()
+        public async Task<bool> GetLatLong()
         {
-            Location location = await Geolocation.GetLastKnownLocationAsync();
-            this.Lat = location.Latitude.ToString();
-            this.Long = location.Longitude.ToString();
+            bool complete = true;
+            try
+            {
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                Location position = await Geolocation.GetLocationAsync(request);
+
+                //var locator = CrossGeolocator.Current;
+                //var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
+
+                this.Lat = position.Latitude.ToString();
+                this.Long = position.Longitude.ToString();
+            } catch(Exception ex)
+            {
+                complete = false;
+            }
+
+            return complete;
         }
 
         public async void GetWeatherByGeolocation()
@@ -150,6 +198,8 @@ namespace weather.ViewModels
             temperatureModel = await new WeatherServices().GetWeatherByGeolocation(lat: this.Lat, longt: this.Long);
             this.Temperature = temperatureModel.main.temp.ToString();
             this.City = temperatureModel.name;
+            this.Maximum = temperatureModel.main.temp_max.ToString();
+            this.Minimal = temperatureModel.main.temp_min.ToString();
         }
 
 

@@ -42,7 +42,7 @@
                 />
 
 
-            <StackLayout Grid.Row="2">
+            <StackLayout Grid.Row="2" HorizontalOptions="Center">
                 <Label
                     TextColor="White"
                     FontSize="20"
@@ -51,7 +51,6 @@
                     HorizontalOptions="Center"
                     />
 
-                <StackLayout Orientation="Horizontal">
                     <Label
                         TextColor="White"
                         FontSize="15"
@@ -59,11 +58,24 @@
                         Text="{Binding City}"
                         HorizontalOptions="Center"
                     />
+                <StackLayout Orientation="Horizontal">
+                    <Label
+                        TextColor="White"
+                        FontSize="15"
+                        Text="{Binding Minimal}"
+                        />
+                    <Label
+                        Text="|"
+                        TextColor="White"
+                        FontSize="15"
+                        />
+                    <Label
+                        TextColor="White"
+                        FontSize="15"
+                        Text="{Binding Maximum}"
+                        />
                 </StackLayout>
-
             </StackLayout>
-
-
 
             <StackLayout Grid.Row="3"
                          Orientation="Horizontal">
