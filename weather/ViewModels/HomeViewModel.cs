@@ -198,6 +198,8 @@ namespace weather.ViewModels
 
         public async void GetWeatherByGeolocation()
         {
+            //OpenLoadModal();
+
             temperatureModel = await new WeatherServices().GetWeatherByGeolocation(lat: this.Lat, longt: this.Long);
             this.Temperature = temperatureModel.main.temp.ToString();
             this.City = temperatureModel.name;
@@ -205,6 +207,7 @@ namespace weather.ViewModels
             this.Minimal = temperatureModel.main.temp_min.ToString();
 
             this.Animation = Lottie(description: temperatureModel.weather.FirstOrDefault().description);
+            //CloseLoadModal();
         }
 
 
@@ -249,6 +252,33 @@ namespace weather.ViewModels
 
 
             return response;
+        }
+
+
+        public async void SearchCity()
+        {
+            //OpenLoadModal();
+
+            temperatureModel = await new WeatherServices().GetWeatherByCity(this.Busca);
+            this.Temperature = temperatureModel.main.temp.ToString();
+            this.City = temperatureModel.name;
+            this.Maximum = temperatureModel.main.temp_max.ToString();
+            this.Minimal = temperatureModel.main.temp_min.ToString();
+
+            this.Animation = Lottie(description: temperatureModel.weather.FirstOrDefault().description);
+            //CloseLoadModal();
+
+        }
+
+
+        public void OpenLoadModal()
+        {
+            MessagingCenter.Send(this, "openLoad");
+        }
+
+        public void CloseLoadModal()
+        {
+            MessagingCenter.Send(this, "closeLoad");
         }
 
     }
