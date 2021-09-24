@@ -16,8 +16,7 @@
     <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.0.10" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
-    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.5.0.6" />
-    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.1.0" />
+    <PackageReference Include="Xamarin.Forms.Skeleton" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="models\" />
@@ -29,6 +28,7 @@
     <None Remove="Xam.Plugin.Geolocator" />
     <None Remove="Views\" />
     <None Remove="Xamarin.CommunityToolkit" />
+    <None Remove="Xamarin.Forms.Skeleton" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="models\" />

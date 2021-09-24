@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Plugin.Geolocator;
 using weather.models;
 using weather.services;
 using Xamarin.Essentials;
@@ -167,6 +166,22 @@ namespace weather.ViewModels
             }
         }
 
+
+        bool _busy = true;
+        public bool Busy
+        {
+            get
+            {
+                return _busy;
+            }
+            set
+            {
+                _busy = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Busy));
+            }
+        }
+
         public ICommand SearchCommand { get; set; }
 
 
@@ -198,16 +213,13 @@ namespace weather.ViewModels
 
         public async void GetWeatherByGeolocation()
         {
-            //OpenLoadModal();
-
             temperatureModel = await new WeatherServices().GetWeatherByGeolocation(lat: this.Lat, longt: this.Long);
             this.Temperature = temperatureModel.main.temp.ToString();
             this.City = temperatureModel.name;
             this.Maximum = temperatureModel.main.temp_max.ToString();
             this.Minimal = temperatureModel.main.temp_min.ToString();
-
             this.Animation = Lottie(description: temperatureModel.weather.FirstOrDefault().description);
-            //CloseLoadModal();
+            this.Busy = false;
         }
 
 
@@ -257,28 +269,17 @@ namespace weather.ViewModels
 
         public async void SearchCity()
         {
-            //OpenLoadModal();
-
+            this.Busy = true;
             temperatureModel = await new WeatherServices().GetWeatherByCity(this.Busca);
-            this.Temperature = temperatureModel.main.temp.ToString();
-            this.City = temperatureModel.name;
-            this.Maximum = temperatureModel.main.temp_max.ToString();
-            this.Minimal = temperatureModel.main.temp_min.ToString();
-
-            this.Animation = Lottie(description: temperatureModel.weather.FirstOrDefault().description);
-            //CloseLoadModal();
-
-        }
-
-
-        public void OpenLoadModal()
-        {
-            MessagingCenter.Send(this, "openLoad");
-        }
-
-        public void CloseLoadModal()
-        {
-            MessagingCenter.Send(this, "closeLoad");
+            if (!string.IsNullOrWhiteSpace(temperatureModel.name))
+            {
+                this.Temperature = temperatureModel.main.temp.ToString();
+                this.City = temperatureModel.name;
+                this.Maximum = temperatureModel.main.temp_max.ToString();
+                this.Minimal = temperatureModel.main.temp_min.ToString();
+                this.Animation = Lottie(description: temperatureModel.weather.FirstOrDefault().description);
+                this.Busy = false;
+            }
         }
 
     }

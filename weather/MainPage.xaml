@@ -4,6 +4,7 @@
              NavigationPage.HasNavigationBar="False"
              x:Class="weather.MainPage"
              xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+             xmlns:sk="clr-namespace:Xamarin.Forms.Skeleton;assembly=Xamarin.Forms.Skeleton"
              >
 
     <ScrollView BackgroundColor="{Binding Theme}">
@@ -70,6 +71,10 @@
                     FontAttributes="Bold"
                     Text="{Binding Temperature}"
                     HorizontalOptions="Center"
+                    sk:Skeleton.IsParent="True"
+                    sk:Skeleton.IsBusy="{Binding Busy}"
+                    sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                    sk:Skeleton.BackgroundColor="DarkGray"
                     />
 
                     <Label
@@ -78,12 +83,20 @@
                         FontAttributes="Bold"
                         Text="{Binding City}"
                         HorizontalOptions="Center"
+                        sk:Skeleton.IsParent="True"
+                        sk:Skeleton.IsBusy="{Binding Busy}"
+                        sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                        sk:Skeleton.BackgroundColor="DarkGray"
                     />
                 <StackLayout Orientation="Horizontal">
                     <Label
                         TextColor="White"
                         FontSize="15"
                         Text="{Binding Minimal}"
+                        sk:Skeleton.IsParent="True"
+                        sk:Skeleton.IsBusy="{Binding Busy}"
+                        sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                        sk:Skeleton.BackgroundColor="DarkGray"
                         />
                     <Label
                         Text="|"
@@ -94,6 +107,10 @@
                         TextColor="White"
                         FontSize="15"
                         Text="{Binding Maximum}"
+                        sk:Skeleton.IsParent="True"
+                        sk:Skeleton.IsBusy="{Binding Busy}"
+                        sk:Skeleton.Animation="{sk:DefaultAnimation Fade}"
+                        sk:Skeleton.BackgroundColor="DarkGray"
                         />
                 </StackLayout>
             </StackLayout>
