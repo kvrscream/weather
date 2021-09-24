@@ -45,5 +45,11 @@ namespace weather
             base.OnDisappearing();
         }
 
+
+        protected void showSnackBar()
+        {
+            
+        }
+
     }
 }
