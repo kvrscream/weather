@@ -198,7 +198,7 @@ namespace weather.ViewModels
             bool complete = true;
             try
             {
-                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy., TimeSpan.FromSeconds(10));
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Default, TimeSpan.FromSeconds(10));
                 Location position = await Geolocation.GetLocationAsync(request);
 
                 this.Lat = position.Latitude.ToString();

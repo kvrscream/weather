@@ -19,7 +19,7 @@
 
             <Frame
                 BackgroundColor="White"
-                CornerRadius="59"
+                CornerRadius="40"
                 HasShadow="False"
                 Grid.Row="0"
                 >
@@ -60,7 +60,7 @@
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 AutoPlay="True"
-                RepeatMode="Infinite"
+                Loop="True"
                 />
 
 
